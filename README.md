@@ -15,5 +15,7 @@ sudo docker images
 sudo docker run --name project project echo "hello project"
 sudo docker ps -a
 sudo docker rm project
+sudo docker ps -a
 sudo docker rmi project
+sudo docker images
 ```
