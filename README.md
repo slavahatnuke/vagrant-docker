@@ -7,7 +7,7 @@ vagrant up
 vagrant ssh
 ```
 
-# Docker stuff
+## Docker stuff
 ```
 cd project
 sudo docker build -t project .
