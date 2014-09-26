@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t project .
+sudo docker build -t project .

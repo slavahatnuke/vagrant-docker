@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker rmi project
+sudo docker rmi project

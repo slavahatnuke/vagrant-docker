@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker rm project
+sudo docker rm project
