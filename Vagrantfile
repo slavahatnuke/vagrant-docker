@@ -21,12 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: ip
   config.vm.synced_folder ".", home
 
-  Vagrant.configure("2") do |config|
-
-    #install docker
-    config.vm.provision "shell",
-      inline: "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
-
-  end
+  config.vm.provision "shell", inline: "sudo apt-get install -y curl"
+  config.vm.provision "shell", inline: "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
 
 end
