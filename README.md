@@ -1,4 +1,4 @@
-# Vagrant box (docker inside)
+# Docker inside
 
 ## Box stuff
 ```

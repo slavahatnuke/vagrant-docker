@@ -1,8 +1,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
-ip = "192.168.10.10"
 name = "docker"
 home = "/home/vagrant/project"
+
 memory = "512"
 cpu="2"
 
@@ -18,9 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--vram", "16"]
   end
 
-  config.vm.network :private_network, ip: ip
+  #sync
   config.vm.synced_folder ".", home
 
+  #provision
   config.vm.provision "shell", inline: "sudo apt-get install -y curl"
   config.vm.provision "shell", inline: "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
 
