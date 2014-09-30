@@ -1,0 +1,40 @@
+VAGRANTFILE_API_VERSION = "2"
+
+name = "pilot-chef"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  #ssh
+  config.ssh.username = "root"
+  config.ssh.password = "root"
+
+  #host
+  config.vm.hostname = name
+  config.vm.provider "docker" do |d|
+
+    d.name = name
+
+    d.build_dir = "."
+    d.build_args = ["--tag", name]
+
+    d.has_ssh = true
+    d.remains_running = true
+
+    d.cmd = ["/usr/sbin/sshd", "-D"]
+
+  end
+
+  #provision
+  config.omnibus.chef_version = :latest
+  config.librarian_chef.cheffile_dir = "./chef"
+
+  config.vm.provision :chef_solo do |chef|
+
+    chef.cookbooks_path = ["./chef/cookbooks"]
+    chef.roles_path = "./chef/roles"
+
+    chef.add_role "vagrant"
+  end
+
+
+end

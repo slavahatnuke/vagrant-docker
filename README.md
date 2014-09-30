@@ -56,6 +56,9 @@ ls /project/
 
 #Pilot stuff
 ```
+#sudo
+sudo su
+
 #go to the pilot project
 cd /vagrant/pilot
 
