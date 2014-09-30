@@ -52,3 +52,16 @@ sudo docker run --rm  --interactive --tty --volume $(pwd):/project --name projec
 ls /project/
 
 ```
+
+
+#Pilot stuff
+```
+#go to the pilot project
+cd /vagrant/pilot
+
+#build pilot vagrant box based on docker
+vagrant up
+
+#go to the built box
+vagrant ssh
+```
