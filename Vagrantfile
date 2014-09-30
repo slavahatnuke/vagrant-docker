@@ -1,8 +1,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
 name = "docker"
-home = "/home/vagrant/project"
-
 memory = "512"
 cpu="2"
 
@@ -18,12 +16,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--vram", "16"]
   end
 
-  #sync
-  config.vm.synced_folder ".", home
-
   #provision
   config.vm.provision "shell", inline: "which curl || sudo apt-get install -y curl"
   config.vm.provision "shell", inline: "which docker || curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
-  config.vm.provision "shell", inline: "which vagrant || ( URL=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb; FILE=mktemp; wget --progress=dot $URL -O $FILE && sudo dpkg -i $FILE; rm $FILE )"
+  config.vm.provision "shell", inline: "which vagrant || ( URL=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb; FILE=tmpfile; wget --progress=dot $URL -O $FILE && sudo dpkg -i $FILE; rm $FILE )"
 
 end
