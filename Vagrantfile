@@ -1,7 +1,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 name = "docker"
-memory = "256"
+memory = "512"
 cpu="2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|

@@ -10,6 +10,8 @@ RUN apt-get install -y curl
 
 ## chef
 RUN curl -L https://www.opscode.com/chef/install.sh | bash
+RUN apt-get install -y rubygems
+
 RUN gem install librarian-chef
 
 ## chef provision
