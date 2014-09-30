@@ -25,9 +25,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ##vagrant
   config.vm.provision "shell", inline: "which vagrant || ( URL=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb; FILE=tmpfile; wget --progress=dot $URL -O $FILE && sudo dpkg -i $FILE; rm $FILE )"
 
-  ##plugins
-  config.vm.provision "shell", inline: "which gem || sudo apt-get install -y rubygems build-essential"
-  config.vm.provision "shell", inline: "which librarian-chef || sudo gem install librarian-chef"
-  config.vm.provision "shell", inline: "sudo vagrant plugin list | grep vagrant-hostsupdater || ( sudo vagrant plugin install vagrant-hostsupdater )"
 
 end
