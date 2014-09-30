@@ -1,1 +1,1 @@
-cookbook_path ["./cookbooks","./site-cookbooks"]
+cookbook_path ["/chef/cookbooks","/chef/site-cookbooks"]
