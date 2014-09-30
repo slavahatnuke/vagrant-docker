@@ -22,7 +22,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", home
 
   #provision
-  config.vm.provision "shell", inline: "sudo apt-get install -y curl"
-  config.vm.provision "shell", inline: "curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
+  config.vm.provision "shell", inline: "which curl || sudo apt-get install -y curl"
+  config.vm.provision "shell", inline: "which docker || curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
+  config.vm.provision "shell", inline: "which vagrant || ( URL=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.deb; FILE=mktemp; wget --progress=dot $URL -O $FILE && sudo dpkg -i $FILE; rm $FILE )"
 
 end
