@@ -10,10 +10,11 @@ RUN apt-get install -y curl
 
 ## chef
 RUN curl -L https://www.opscode.com/chef/install.sh | bash
+RUN gem install librarian-chef
 
 ## chef provision
 ADD ./chef /chef
-
+RUN cd /chef && librarian-chef install
 
 ## sshd
 
