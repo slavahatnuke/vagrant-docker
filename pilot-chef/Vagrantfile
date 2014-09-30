@@ -9,7 +9,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.password = "root"
 
   #host
-  config.vm.hostname = name
   config.vm.provider "docker" do |d|
 
     d.name = name
