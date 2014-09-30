@@ -60,7 +60,7 @@ ls /project/
 cd /vagrant/pilot
 
 #build pilot vagrant box based on docker
-vagrant up
+vagrant up --provider docker
 
 #go to the built box
 vagrant ssh
