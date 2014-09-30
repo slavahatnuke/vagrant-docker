@@ -11,6 +11,10 @@ RUN apt-get install -y curl
 ## chef
 RUN curl -L https://www.opscode.com/chef/install.sh | bash
 
+## chef provision
+ADD ./chef /chef
+
+
 ## sshd
 
 RUN apt-get update && apt-get install -y openssh-server

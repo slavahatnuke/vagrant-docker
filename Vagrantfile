@@ -27,6 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   ##plugins
   config.vm.provision "shell", inline: "which gem || sudo apt-get install -y rubygems build-essential"
-  config.vm.provision "shell", inline: "sudo vagrant plugin list | grep vagrant-librarian-chef || ( sudo vagrant plugin install vagrant-librarian-chef && sudo vagrant plugin install vagrant-omnibus && sudo vagrant plugin install vagrant-hostsupdater )"
+  config.vm.provision "shell", inline: "which librarian-chef || sudo gem install librarian-chef"
+  config.vm.provision "shell", inline: "sudo vagrant plugin list | grep vagrant-hostsupdater || ( sudo vagrant plugin install vagrant-hostsupdater )"
 
 end

@@ -1,5 +1,5 @@
 {
-    "name": "pilot.chef",
+    "name": "pilot-chef",
     "description": "",
     "chef_type": "role",
     "json_class": "Chef::Role",
