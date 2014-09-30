@@ -1,6 +1,6 @@
 {
     "name": "pilot-chef",
-    "description": "",
+    "description": "pilot-chef",
     "chef_type": "role",
     "json_class": "Chef::Role",
     "default_attributes": {},
