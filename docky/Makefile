@@ -62,10 +62,6 @@ export:
 import:
 	cd $(NAME) &&  tar -c --to-stdout . | sudo docker import - $(NAME)
 
-
-repos: git-remote-v
-repo: git-remote-add
-
 pull: git-pull
 push: git-push
 
@@ -77,23 +73,17 @@ git-commit:
 	git commit -m "- $(message)"
 
 git-pull:
-	git fetch origin
-	git pull origin
+	git fetch
+	git pull
 
 git-push:
-	git push origin --all
+	git push --all
 
 git-init:
 	ls -a | grep .git || git init
 
 dir-init:
 	mkdir $(NAME)
-
-git-remote-v:
-	git remote -v
-
-git-remote-add:
-	git remote add origin $(name)
 
 git-remove:
 	rm -rf .git
