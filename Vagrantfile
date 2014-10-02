@@ -19,7 +19,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #provision
 
   ##docker
+  config.vm.provision "shell", inline: "which make || sudo apt-get install -y make"
   config.vm.provision "shell", inline: "which curl || sudo apt-get install -y curl"
+  config.vm.provision "shell", inline: "sudo dpkg -l | grep bash-completion || ( sudo apt-get install -y bash-completion && sudo cp /home/vagrant/.bashrc /root/.bashrc )"
   config.vm.provision "shell", inline: "which docker || curl -sSL https://get.docker.io/ubuntu/ | sudo sh"
 
   ##vagrant
