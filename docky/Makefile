@@ -1,15 +1,20 @@
 
 NAME=docky
 BOX=ubuntu:precise
-
 UP=echo hello
+
+DIR = $(shell pwd)
+GIT_STATUS = $(shell git status --short)
+
+#options
+message=
 
 all: processes
 
 projects:
 	docker images
 
-init:
+init: git-init
 	docker run --name $(NAME)-init $(BOX) echo $(NAME) && docker commit $(NAME)-init $(NAME) && docker rm $(NAME)-init
 
 commit:
@@ -40,6 +45,20 @@ export:
 import:
 	cat $(NAME).tar.gz | sudo docker import - $(NAME)
 
+save: commit export git-add git-commit
+
+git-add:
+	git add . && git add -u
+
+git-commit:
+	git commit -m "$(GIT_STATUS) $(message)"
+
+git-init:
+	ls -a | grep .git || git init
+
 up: start
 down: stop
 reload: stop start
+
+test:
+	echo $(ARG1)
