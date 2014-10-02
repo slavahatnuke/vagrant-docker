@@ -35,7 +35,7 @@ remove: stop
 	docker rmi $(NAME)
 
 export:
-	docker export $(NAME) | gzip -9 > $(NAME).tar.gz
+	docker export $(NAME) | gzip --fast > $(NAME).tar.gz
 
 import:
 	cat $(NAME).tar.gz | sudo docker import - $(NAME)
