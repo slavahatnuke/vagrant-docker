@@ -1,3 +1,5 @@
 /.idea
 .vagrant
 /docky/docky
+*.tar
+*.tar.gz
