@@ -2,7 +2,7 @@
 NAME=docky
 BOX=ubuntu:precise
 UP=echo hello
-
+LOG=/dev/null
 DIR = $(shell pwd)
 GIT_STATUS = $(shell git status --short)
 
@@ -30,12 +30,12 @@ processes:
 ps: processes
 
 setup:
-	( docker images | grep $(NAME) > /dev/null && echo "\n\n" && docker run --rm -it --name $(NAME) $(NAME) /bin/bash ) || echo "[NOTICE] make import or make init"
+	( docker images | grep $(NAME) > $(LOG) && echo "\n\n" && docker run --rm -it --name $(NAME) $(NAME) /bin/bash ) || echo "[NOTICE] make import or make init"
 
 run: setup
 
 stop:
-	( docker ps -a | grep $(NAME) > /dev/null && docker rm $(NAME) ) || echo "stopped"
+	( docker ps -a | grep $(NAME) > $(LOG) && docker rm $(NAME) ) || echo "stopped"
 
 start:
 	docker run --name $(NAME) $(NAME) $(UP)
@@ -51,16 +51,11 @@ import.tar.gz:
 
 save: commit export git-add git-commit
 
-
-#	cd $(NAME) && ( tar -xf ../$(NAME).tar 2> /dev/null || echo OK )
-#	rm $(NAME).tar
-
 export:
-	docker export $(NAME) | tar -C $(NAME) -xf - 2> /dev/null || echo OK
-
+	docker export $(NAME) | tar -C $(NAME) -xf - 2> $(LOG) || echo OK
 
 import:
-	cd $(NAME) &&  tar -c --to-stdout . | sudo docker import - $(NAME)
+	tar -C $(NAME) -c --to-stdout . | sudo docker import - $(NAME)
 
 pull: git-pull
 push: git-push
