@@ -3,3 +3,4 @@
 /docky/docky
 *.tar
 *.tar.gz
+*.log
