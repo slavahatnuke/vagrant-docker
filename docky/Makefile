@@ -21,9 +21,8 @@ processes:
 ps: processes
 
 setup:
-	docker run --rm -it --name $(NAME) $(NAME) /bin/bash
+	( docker images | grep $(NAME) > /dev/null && echo "\n\n" && docker run --rm -it --name $(NAME) $(NAME) /bin/bash ) || echo "[NOTICE] make import or make init"
 
-project: setup
 run: setup
 
 stop:
@@ -36,10 +35,10 @@ remove: stop
 	docker rmi $(NAME)
 
 export:
-	docker export $(NAME) > $(NAME).tar
+	docker export $(NAME) | gzip -9 > $(NAME).tar.gz
 
 import:
-	cat $(NAME).tar | sudo docker import - $(NAME)
+	cat $(NAME).tar.gz | sudo docker import - $(NAME)
 
 up: start
 down: stop
