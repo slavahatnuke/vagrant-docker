@@ -83,7 +83,7 @@ git-init:
 	ls -a | grep .git || git init
 
 dir-init:
-	mkdir $(NAME)
+	mkdir $(NAME) || echo OK
 
 git-remove:
 	rm -rf .git
