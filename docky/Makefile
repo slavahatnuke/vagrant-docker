@@ -26,7 +26,7 @@ setup:
 run: setup
 
 stop:
-	( docker ps -a | grep $(NAME) && docker rm $(NAME) ) || echo "stopped"
+	( docker ps -a | grep $(NAME) > /dev/null && docker rm $(NAME) ) || echo "stopped"
 
 start:
 	docker run --name $(NAME) $(NAME) $(UP)
