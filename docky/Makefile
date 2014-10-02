@@ -9,13 +9,17 @@ GIT_STATUS = $(shell git status --short)
 #options
 message=
 
-all: processes
+all: projects
+
+images: projects
 
 projects:
 	docker images
 
-init: git-init
-	docker run --name $(NAME)-init $(BOX) echo $(NAME) && docker commit $(NAME)-init $(NAME) && docker rm $(NAME)-init
+init: git-init dir-init
+	docker run --name $(NAME)-init $(BOX) echo $(NAME)
+	docker commit $(NAME)-init $(NAME)
+	docker rm $(NAME)-init
 
 commit:
 	docker commit $(NAME) $(NAME)
@@ -39,22 +43,60 @@ start:
 remove: stop
 	docker rmi $(NAME)
 
-export:
+export.tar.gz:
 	docker export $(NAME) | gzip --fast > $(NAME).tar.gz
 
-import:
+import.tar.gz:
 	cat $(NAME).tar.gz | sudo docker import - $(NAME)
 
 save: commit export git-add git-commit
 
+
+#	cd $(NAME) && ( tar -xf ../$(NAME).tar 2> /dev/null || echo OK )
+#	rm $(NAME).tar
+
+export:
+	docker export $(NAME) | tar -C $(NAME) -xf - 2> /dev/null || echo OK
+
+
+import:
+	cd $(NAME) &&  tar -c --to-stdout . | sudo docker import - $(NAME)
+
+
+repos: git-remote-v
+repo: git-remote-add
+
+pull: git-pull
+push: git-push
+
 git-add:
-	git add . && git add -u
+	git add .
+	git add -u
 
 git-commit:
-	git commit -m "$(GIT_STATUS) $(message)"
+	git commit -m "- $(message)"
+
+git-pull:
+	git fetch origin
+	git pull origin
+
+git-push:
+	git push origin --all
 
 git-init:
 	ls -a | grep .git || git init
+
+dir-init:
+	mkdir $(NAME)
+
+git-remote-v:
+	git remote -v
+
+git-remote-add:
+	git remote add origin $(name)
+
+git-remove:
+	rm -rf .git
 
 up: start
 down: stop
